@@ -1,3 +1,6 @@
+__author__ = "Keith Lee"
+__email__ = "keithlee002@gmail.com"
+
 # Create your views here.
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, HttpResponseServerError, Http404
 from models import *
@@ -9,13 +12,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-import ast
 
 def index(request):
 	#itemList  = ["recipe","questions"]
 	itemList = ['recipe','question']
 	return render_to_response('shakeApp/index.html', {'itemList':itemList},
 		context_instance=RequestContext(request))
+	
 # login
 def loginUser(request):
 	logout(request)
@@ -40,7 +43,7 @@ def loginUser(request):
 	return HttpResponseServerError(error_msg)
 	
 def logoutUser(request):
-	response = logout(request)
+	logout(request)
 	return HttpResponseRedirect('/shakeApp/')
 
 
@@ -80,7 +83,7 @@ def createRecipe(request):
 					error_msg = u"Recipe name already created."
 				else:
 					text = post['text']
-					newRecipe = Recipe.objects.create(name=name,text=text)
+					Recipe.objects.create(name=name,text=text)
 					return HttpResponseRedirect('/shakeApp/recipe/')
 	return HttpResponseServerError(error_msg)
 
@@ -173,7 +176,7 @@ def createQuestion(request):
 					error_msg = u"Question name already created."
 				else:
 					text = post['text']
-					newQuestion = Question.objects.create(name=name,text=text)
+					Question.objects.create(name=name,text=text)
 					return HttpResponseRedirect('/shakeApp/question/')
 	return HttpResponseServerError(error_msg)
 

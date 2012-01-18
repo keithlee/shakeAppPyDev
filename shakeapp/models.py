@@ -1,6 +1,8 @@
+__author__ = "Keith Lee"
+__email__ = "keithlee002@gmail.com"
+
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
 
 # Create your models here.
 class Recipe(models.Model):
@@ -16,16 +18,6 @@ class Question(models.Model):
 	numLikes = models.IntegerField(default = 0)
 	def __unicode__(self):
 		return u"Question(%s, %s, %d)" % (self.name, self.text, self.numLikes)
-
-'''class UserProfile(models.Model):
-	user = models.OneToOneField(User)
-	recipeLikeList = models.CommaSeparatedIntegerField(max_length=200) 
-	questionLikeList = models.CommaSeparatedIntegerField(max_length=200)
-	
-def create_user_profile(sender, instance, created, **kwargs):
-	if created:
-		UserProfile.objects.create(user=instance)
-	post_save.connect(create_user_profile, sender=User)'''
 	
 class RecipeLikes(models.Model):
 	user = models.ForeignKey(User) 
