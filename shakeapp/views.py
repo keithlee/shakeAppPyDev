@@ -16,7 +16,6 @@ def index(request):
 	itemList = ['recipe','question']
 	return render_to_response('shakeApp/index.html', {'itemList':itemList},
 		context_instance=RequestContext(request))
-# test
 # login
 def loginUser(request):
 	logout(request)
