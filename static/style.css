@@ -1,0 +1,23 @@
+/* default.css */
+body
+{
+    background-color: #fff;
+    color: #000;
+    font-family: Verdana;
+    padding: 8pt;
+}
+body {
+  padding: 0;
+  margin: 0;
+  background: #fffce7;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fffce7), 
+  	color-stop(100%,#dbdbbf));  
+ /* background: #fffce7;*/
+}
+div.like{
+	margin-right: 25px;
+	float: left;
+}
+div.delete{
+	float: left;
+}

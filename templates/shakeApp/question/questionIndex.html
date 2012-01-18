@@ -1,0 +1,85 @@
+<!--Hi! I see you are looking at my code. :) -->
+
+<script type="text/javascript">
+if (typeof window.DeviceMotionEvent != 'undefined') {
+	// Shake sensitivity (a lower number is more)
+	var sensitivity = 20;
+
+	// Position variables
+	var x1 = 0, y1 = 0, z1 = 0, x2 = 0, y2 = 0, z2 = 0;
+
+	// Listen to motion events and update the position
+	window.addEventListener('devicemotion', function (e) {
+		x1 = e.accelerationIncludingGravity.x;
+		y1 = e.accelerationIncludingGravity.y;
+		z1 = e.accelerationIncludingGravity.z;
+	}, false);
+
+	// Periodically check the position and fire
+	// if the change is greater than the sensitivity
+	setInterval(function () {
+		var change = Math.abs(x1-x2+y1-y2+z1-z2);
+
+		if (change > sensitivity) {
+			document.getElementById('randomButton').click();
+		}
+
+		// Update new position
+		x2 = x1;
+		y2 = y1;
+		z2 = z1;
+	}, 150);
+}
+</script>
+
+<title> Shake Application </title>
+<link rel="stylesheet" type="text/css" href="/static/style.css"/>
+{% if questionList %}
+	<ul>
+	{% for question in questionList %}
+		<li><a href="/shakeApp/question/{{ question.id}}/"> {{ question.name }}</a>    likes:{{question.numLikes}}</li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No question have been created. </p>
+{% endif %}
+
+<div class="new">
+	<h2> Add a new question </h2>
+	<form action="/shakeApp/question/create/" method="post">
+	{% csrf_token %}
+	<label for="name">Name</label>
+	<input type="text" name="name" id="name">
+	<br><br>
+	Text
+	<br>
+	<textarea rows="10" cols="40" name="text"></textarea>
+	<input type="submit" value="Create question">
+	</form>
+</div>
+
+Don't know which question to answer? Shake your mobile device or click the button below.
+<br>
+<br>
+<div class="random">
+	<form action="/shakeApp/question/random/" method="post">
+	{% csrf_token %}
+	<label for="keyword">What would you like to study?</label>
+	<input type="text" name="keyword" id="keyword">
+	<script>
+	//document.write('<button type="button" onclick="location.href=\'/shakeApp/question/'+randomQuestionID+'\'">Cook this!</button>');
+	document.write('<input type="submit" id="randomButton" value="Answer this">');
+	</script>
+	</form>
+</div>
+
+<button type="button" onclick="location.href='/shakeApp/'"> Back to Home Page</button>
+<br>
+<br>
+<div class="new">
+	<form action="/shakeApp/logout/" method="post">
+		{% csrf_token %}
+		<input type="submit" value="Logout">
+	</form>
+</div>
+

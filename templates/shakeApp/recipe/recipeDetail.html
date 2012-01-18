@@ -1,0 +1,25 @@
+<link rel="stylesheet" type="text/css" href="/static/style.css"/>
+
+<title> {{ recipe.name }} </title>
+<h1>{{ recipe.name }}</h1>
+<body>
+<div class="recipeText">
+	{{recipe.text}}
+</div>
+<body>
+
+<div class="like">
+	<form action="/shakeApp/recipe/like/" method="post">
+	<input type="hidden" name="recipe_id" value="{{recipe.id}}">	
+	<input type="hidden" name="recipe_name" value="{{recipe.name}}">		
+	<input type="submit" value="Like">
+	</form>
+</div>
+<div class="delete">
+	<form action="/shakeApp/recipe/delete/" method="post">
+	{% csrf_token %}
+	<input type="hidden" name="recipe_id" value="{{recipe.id}}">	
+	<input type="hidden" name="recipe_name" value="{{recipe.name}}">
+	<input type="submit" value="Delete recipe">
+	</form>
+</div>

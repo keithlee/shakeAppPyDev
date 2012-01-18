@@ -1,0 +1,22 @@
+<link rel="stylesheet" type="text/css" href="/static/style.css"/>
+
+<html>
+<head>
+</head>
+	<body>
+	<title> Home page </title>
+
+<button type="button" onclick="location.href='/shakeApp/login/'"> Login</button>
+
+<button type="button" onclick="location.href='/shakeApp/logout/'"> Logout</button>
+	<BR/>
+	<BR/>
+	Choose an item
+	{% for item in itemList %}
+		<li><a href="/shakeApp/{{ item }}/"> {{ item }}</a></li>
+	{% endfor %}
+		
+
+	</body>
+	
+</html>

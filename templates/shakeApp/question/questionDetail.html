@@ -1,0 +1,25 @@
+<link rel="stylesheet" type="text/css" href="/static/style.css"/>
+
+<title> {{ question.name }} </title>
+<h1>{{ question.name }}</h1>
+<body>
+<div class = "questionText">
+	{{ question.text }}
+</div>
+<body>
+
+<div class="like">
+	<form action="/shakeApp/question/like/" method="post">
+	<input type="hidden" name="question_id" value="{{question.id}}">	
+	<input type="hidden" name="question_name" value="{{question.name}}">		
+	<input type="submit" value="Like">
+	</form>
+</div>
+<div class="delete">
+	<form action="/shakeApp/question/delete/" method="post">
+	{% csrf_token %}
+	<input type="hidden" name="question_id" value="{{ question.id }}">
+	<input type="hidden" name="question_name" value="{{question.name}}">			
+	<input type="submit" value="Delete question">
+	</form>
+</div>
