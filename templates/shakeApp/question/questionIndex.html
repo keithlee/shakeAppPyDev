@@ -48,27 +48,27 @@ if (typeof window.DeviceMotionEvent != 'undefined') {
 	<h2> Add a new question </h2>
 	<form action="/shakeApp/question/create/" method="post">
 	{% csrf_token %}
-	<label for="name">Name</label>
+	<label for="name">Question</label>
 	<input type="text" name="name" id="name">
 	<br><br>
-	Text
+	Answer
 	<br>
 	<textarea rows="10" cols="40" name="text"></textarea>
 	<input type="submit" value="Create question">
 	</form>
 </div>
 
-Don't know which question to answer? Shake your mobile device or click the button below.
+Don't know which question to look at? Shake your mobile device or click the button below.
 <br>
 <br>
 <div class="random">
 	<form action="/shakeApp/question/random/" method="post">
 	{% csrf_token %}
-	<label for="keyword">What would you like to study?</label>
+	<label for="keyword">What would you like to know about?</label>
 	<input type="text" name="keyword" id="keyword">
 	<script>
 	//document.write('<button type="button" onclick="location.href=\'/shakeApp/question/'+randomQuestionID+'\'">Cook this!</button>');
-	document.write('<input type="submit" id="randomButton" value="Answer this">');
+	document.write('<input type="submit" id="randomButton" value="Search">');
 	</script>
 	</form>
 </div>

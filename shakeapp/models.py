@@ -18,7 +18,9 @@ class Question(models.Model):
 	numLikes = models.IntegerField(default = 0)
 	def __unicode__(self):
 		return u"Question(%s, %s, %d)" % (self.name, self.text, self.numLikes)
-	
+
+# Table to keep track of the recipes that each user likes.
+# Had to include username and recipeName fields to work with non-relational DB.	
 class RecipeLikes(models.Model):
 	user = models.ForeignKey(User) 
 	recipe = models.ForeignKey('Recipe')
@@ -26,7 +28,7 @@ class RecipeLikes(models.Model):
 	recipeName = models.CharField(max_length=200)
 	def __unicode__(self):
 		return u"likes(%s, %s, %s, %s)" % (self.user, self.recipe, self.username, self.recipeName)
-	
+		
 class QuestionLikes(models.Model):
 	user = models.ForeignKey(User) 
 	question = models.ForeignKey('Question')

@@ -123,7 +123,7 @@ def randomRecipe(request):
 		post = request.POST.copy()
 		if post.has_key('ingredient'):
 			ingredient = post['ingredient']
-			q = Recipe.objects.filter(text__icontains=ingredient)
+			q = Recipe.objects.filter(name__icontains=ingredient)
 			# Ingredient is in atleast one recipe added.
 			if q.count() > 0:
 				randomNum = randint(0, q.count()-1)
@@ -131,7 +131,7 @@ def randomRecipe(request):
 				return render_to_response('shakeApp/recipe/recipeDetail.html', {'recipe':p}, 
 					context_instance=RequestContext(request))
 			else:
-				return HttpResponseNotFound('<h1>Sorry no recipe uses %s as an ingredient' % ingredient)
+				return HttpResponseNotFound('<h1>Sorry no recipe uses \"%s\" as an ingredient' % ingredient)
 		else:
 			allRecipes = Recipe.objects.all()
 			randomNum = randint(0, allRecipes.count()-1)
@@ -189,7 +189,7 @@ def likeQuestion(request):
 	username = user.username
 	
 	if QuestionLikes.objects.filter(username=username,questionName=questionName).count() >0:
-		return HttpResponseServerError("You already liked this Question. Now add another question! :)")
+		return HttpResponseServerError("You already liked this Question. Now look at another question! :)")
 	#Create Likes table that keeps track of recipes that the users have liked. 
 	QuestionLikes.objects.create(user=User.objects.get(username=username), question=Question.objects.get(name=questionName), 
 						username=username, questionName=questionName)
@@ -216,7 +216,7 @@ def randomQuestion(request):
 		post = request.POST.copy()
 		if post.has_key('keyword'):
 			keyword = post['keyword']
-			q = Question.objects.filter(text__icontains=keyword)
+			q = Question.objects.filter(name__icontains=keyword)
 			# Ingredient is in atleast one recipe added.
 			if q.count() > 0:
 				randomNum = randint(0, q.count()-1)
@@ -224,7 +224,7 @@ def randomQuestion(request):
 				return render_to_response('shakeApp/question/questionDetail.html', {'question':p}, 
 					context_instance=RequestContext(request))
 			else:
-				return HttpResponseNotFound('<h1>Sorry no question with %s has been added yet' % keyword)
+				return HttpResponseNotFound('<h1>Sorry no question related to \"%s\" has been added yet' % keyword)
 		else:
 			allQuestions = Question.objects.all()
 			randomNum = randint(0, allQuestions.count()-1)
